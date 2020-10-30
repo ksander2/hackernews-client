@@ -6,6 +6,8 @@ import { GlobalStyles } from '../styles/GlobalStyles';
 import { NavMenu } from './NavMenu';
 import DefaultPage from './DefaultPage';
 import { PageNotFound } from './PageNotFound';
+import { BodyWrapper } from '../styles/App';
+
 import { StoriesView } from './StoriesView';
 
 const emotionCache = createCache();
@@ -15,18 +17,29 @@ const App: React.FC = () => {
     <CacheProvider value={emotionCache}>
       <Router basename="/">
         <Global styles={GlobalStyles} />
-        <NavMenu />
-        <Switch>
-          <Route exact path="/" component={DefaultPage} />
-          <Route path="/top" component={() => <StoriesView category="top" />} />
-          <Route path="/ask" component={() => <StoriesView category="ask" />} />
-          <Route path="/job" component={() => <StoriesView category="job" />} />
-          <Route
-            path="/show"
-            component={() => <StoriesView category="show" />}
-          />
-          <Route path="*" component={PageNotFound} />
-        </Switch>
+        <BodyWrapper>
+          <NavMenu />
+          <Switch>
+            <Route exact path="/" component={DefaultPage} />
+            <Route
+              path="/top"
+              component={() => <StoriesView category="top" />}
+            />
+            <Route
+              path="/ask"
+              component={() => <StoriesView category="ask" />}
+            />
+            <Route
+              path="/job"
+              component={() => <StoriesView category="job" />}
+            />
+            <Route
+              path="/show"
+              component={() => <StoriesView category="show" />}
+            />
+            <Route path="*" component={PageNotFound} />
+          </Switch>
+        </BodyWrapper>
       </Router>
     </CacheProvider>
   );

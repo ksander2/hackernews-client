@@ -31,3 +31,4 @@ export const Black = '#000000';
 export const SelectionBackground = '#212428';
 export const SemiWhite = '#BFBFBF';
 export const SectionBorder = '#8A8A8A';
+export const Green = '#4CAF50';

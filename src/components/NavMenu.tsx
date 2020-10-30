@@ -1,5 +1,8 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { NavMenuWrapper, NavLinkStyle } from '../styles/NavMenu';
 
 type ListMenuItem = {
   name: string;
@@ -14,10 +17,11 @@ const listMenuItem: ListMenuItem[] = [
 
 export const NavMenu: React.FC = () => {
   return (
-    <div>
+    <NavMenuWrapper>
       {listMenuItem.map((item) => (
         <NavLink
           key={`menu-item-${item.name}`}
+          css={NavLinkStyle}
           activeClassName="active"
           id={`id-item-${item.name}`}
           to={item.url}
@@ -25,6 +29,6 @@ export const NavMenu: React.FC = () => {
           {item.name}
         </NavLink>
       ))}
-    </div>
+    </NavMenuWrapper>
   );
 };
