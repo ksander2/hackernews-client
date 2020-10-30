@@ -1,26 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import createCache from '@emotion/cache';
+import { CacheProvider, Global } from '@emotion/core';
+import { GlobalStyles } from './styles/GlobalStyles';
 
-function App() {
+const emotionCache = createCache();
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CacheProvider value={emotionCache}>
+      <Global styles={GlobalStyles} />
+      <div>test</div>
+    </CacheProvider>
   );
-}
+};
 
 export default App;
