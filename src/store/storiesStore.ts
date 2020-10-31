@@ -1,4 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  PayloadAction,
+  createEntityAdapter,
+  EntityState,
+} from '@reduxjs/toolkit';
 import { Story } from '../models/story';
 import { AppThunk } from './types';
 import {
@@ -6,25 +11,31 @@ import {
   getStoriesByArrayId,
 } from '../service/hackerNewsService';
 
+const storyAdapter = createEntityAdapter<Story>({
+  selectId: (story) => story.id,
+  sortComparer: (a, b) => a.title.localeCompare(b.title),
+});
+
 export type LoadStage = 'none' | 'requested' | 'succeeded' | 'failed';
 
-type StoriesState = {
-  data: Story[];
+type StoriesState = EntityState<Story> & {
   loadStage: LoadStage;
 };
 
-const defaultStoriesState: StoriesState = { data: [], loadStage: 'none' };
+const initialState: StoriesState = storyAdapter.getInitialState({
+  loadStage: 'none',
+});
 
 const storiesSlice = createSlice({
   name: 'stories',
-  initialState: defaultStoriesState,
+  initialState,
   reducers: {
     fetchStoriesRequest(state) {
       state.loadStage = 'requested';
     },
     fetchStoriesSucceed(state, { payload }: PayloadAction<Story[]>) {
       state.loadStage = 'succeeded';
-      state.data = payload;
+      storyAdapter.setAll(state, payload);
     },
     fetchStoriesFailed(state) {
       state.loadStage = 'failed';
