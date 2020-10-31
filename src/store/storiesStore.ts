@@ -18,17 +18,15 @@ const storyAdapter = createEntityAdapter<Story>({
 
 export type LoadStage = 'none' | 'requested' | 'succeeded' | 'failed';
 
-type StoriesState = EntityState<Story> & {
+type RequestInfo = {
   loadStage: LoadStage;
 };
 
-const initialState: StoriesState = storyAdapter.getInitialState({
-  loadStage: 'none',
-});
-
 const storiesSlice = createSlice({
   name: 'stories',
-  initialState,
+  initialState: storyAdapter.getInitialState<RequestInfo>({
+    loadStage: 'none',
+  }),
   reducers: {
     fetchStoriesRequest(state) {
       state.loadStage = 'requested';
