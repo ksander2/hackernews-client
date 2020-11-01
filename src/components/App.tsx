@@ -9,7 +9,7 @@ import { NavMenu } from './NavMenu';
 import DefaultPage from './DefaultPage';
 import { PageNotFound } from './PageNotFound';
 import { BodyWrapper } from '../styles/App';
-import StoriesView from '../containers/StoriesViewContainer';
+import StoriesListView from '../containers/StoriesListViewContainer';
 import rootReducer from '../store/rootReducer';
 
 const emotionCache = createCache();
@@ -31,19 +31,19 @@ const App: React.FC = () => {
               <Route exact path="/" component={DefaultPage} />
               <Route
                 path="/top"
-                component={() => <StoriesView category="top" />}
+                component={() => <StoriesListView category="top" />}
               />
               <Route
                 path="/ask"
-                component={() => <StoriesView category="ask" />}
+                component={() => <StoriesListView category="ask" />}
               />
               <Route
                 path="/job"
-                component={() => <StoriesView category="job" />}
+                component={() => <StoriesListView category="job" />}
               />
               <Route
                 path="/show"
-                component={() => <StoriesView category="show" />}
+                component={() => <StoriesListView category="show" />}
               />
               <Route path="*" component={PageNotFound} />
             </Switch>

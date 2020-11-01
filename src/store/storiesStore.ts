@@ -2,10 +2,9 @@ import {
   createSlice,
   PayloadAction,
   createEntityAdapter,
-  EntityState,
 } from '@reduxjs/toolkit';
 import { Story } from '../models/story';
-import { AppThunk } from './types';
+import { AppThunk, RequestInfo } from './types';
 import {
   getTopStoriesIdArray,
   getStoriesByArrayId,
@@ -15,12 +14,6 @@ const storyAdapter = createEntityAdapter<Story>({
   selectId: (story) => story.id,
   sortComparer: (a, b) => a.title.localeCompare(b.title),
 });
-
-export type LoadStage = 'none' | 'requested' | 'succeeded' | 'failed';
-
-type RequestInfo = {
-  loadStage: LoadStage;
-};
 
 const storiesSlice = createSlice({
   name: 'stories',
@@ -57,5 +50,7 @@ export const fetchStories = (): AppThunk => async (dispatch) => {
     dispatch(fetchStoriesFailed());
   }
 };
+
+export const { selectAll } = storyAdapter.getSelectors();
 
 export default storiesSlice.reducer;
