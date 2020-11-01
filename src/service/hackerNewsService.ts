@@ -4,7 +4,7 @@ import {
   convertToStory,
   StoryApiModel,
 } from '../models/apiModels';
-import { StoriesIds, Story } from '../models/story';
+import { StoriesIds, Story } from '../types/story';
 
 const baseUrl = 'https://hacker-news.firebaseio.com/v0/';
 const itemPath = 'item/';

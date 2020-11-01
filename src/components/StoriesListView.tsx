@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CategoryStories } from '../types/common';
 import { Loader } from './Loader';
-import { Story } from '../models/story';
+import { Story } from '../types/story';
 import { StoryView } from './StoryView';
 import {
   StoryListWrapper,

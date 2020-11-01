@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Story } from '../models/story';
+import { Story } from '../types/story';
 import {
   StoryWrapper,
   StoryTitle,

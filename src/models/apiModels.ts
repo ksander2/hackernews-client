@@ -10,7 +10,7 @@ import {
   Undefined,
 } from 'runtypes';
 
-import { StoriesIds, Story } from './story';
+import { StoriesIds, Story } from '../types/story';
 
 const StoryType = Union(
   Literal('job'),

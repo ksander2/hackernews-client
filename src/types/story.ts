@@ -1,6 +1,7 @@
 export type StoriesIds = number[];
 
 export type StoryType = 'job' | 'story' | 'comment' | 'poll' | 'pollopt';
+
 export type Story = {
   id: number;
   by: string;

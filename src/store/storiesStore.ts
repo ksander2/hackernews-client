@@ -3,7 +3,7 @@ import {
   PayloadAction,
   createEntityAdapter,
 } from '@reduxjs/toolkit';
-import { Story } from '../models/story';
+import { Story } from '../types/story';
 import { AppThunk, RequestInfo } from './types';
 import {
   getTopStoriesIdArray,
@@ -16,7 +16,7 @@ import { CategoryStories } from '../types/common';
 
 const storyAdapter = createEntityAdapter<Story>({
   selectId: (story) => story.id,
-  sortComparer: (a, b) => a.title.localeCompare(b.title),
+  sortComparer: (a, b) => a.id - b.id,
 });
 
 const getInitialState = () =>
@@ -71,7 +71,7 @@ export const fetchStories = (
   dispatch(fetchStoriesRequest());
   try {
     const ids = await getStoriesIds(categoryStories);
-    const stories = await getStoriesByArrayId(ids.splice(0, count));
+    const stories = await getStoriesByArrayId(ids.sort().splice(0, count));
     dispatch(fetchStoriesSucceed(stories));
   } catch (e) {
     console.log(e);
