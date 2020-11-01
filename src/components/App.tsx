@@ -11,7 +11,6 @@ import { PageNotFound } from './PageNotFound';
 import { BodyWrapper } from '../styles/App';
 import StoriesListView from '../containers/StoriesListViewContainer';
 import rootReducer from '../store/rootReducer';
-import { MenuItem } from '../types/nav';
 
 const emotionCache = createCache();
 
@@ -20,12 +19,7 @@ const store = configureStore({
   middleware: getDefaultMiddleware(),
 });
 
-const listMenuItem: MenuItem[] = [
-  { name: 'Top', url: '/top' },
-  { name: 'Ask', url: '/ask' },
-  { name: 'Job', url: '/job' },
-  { name: 'Show', url: '/show' },
-];
+const listMenuItem: string[] = ['top', 'ask', 'job', 'show'];
 
 const App: React.FC = () => {
   return (
@@ -38,7 +32,7 @@ const App: React.FC = () => {
             <Switch>
               <Route exact path="/" component={DefaultPage} />
               <Route
-                path={['/top', '/ask', '/job', '/show']}
+                path={listMenuItem.map((item) => `/${item}`)}
                 component={() => <StoriesListView />}
               />
               <Route path="*" component={PageNotFound} />

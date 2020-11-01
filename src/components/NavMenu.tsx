@@ -3,10 +3,9 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { NavMenuWrapper, NavLinkStyle } from '../styles/NavMenu';
-import { MenuItem } from '../types/nav';
 
 type NavMenuProps = {
-  menuItems: MenuItem[];
+  menuItems: string[];
 };
 
 export const NavMenu: React.FC<NavMenuProps> = ({ menuItems }) => {
@@ -14,13 +13,13 @@ export const NavMenu: React.FC<NavMenuProps> = ({ menuItems }) => {
     <NavMenuWrapper>
       {menuItems.map((item) => (
         <NavLink
-          key={`menu-item-${item.name}`}
+          key={`menu-item-${item}`}
           css={NavLinkStyle}
           activeClassName="active"
-          id={`id-item-${item.name}`}
-          to={item.url}
+          id={`id-item-${item}`}
+          to={`/${item}`}
         >
-          {item.name}
+          {item}
         </NavLink>
       ))}
     </NavMenuWrapper>
