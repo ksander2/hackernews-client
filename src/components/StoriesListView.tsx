@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useLocation } from 'react-router';
 import { CategoryStories } from '../types/common';
 import { Loader } from './Loader';
@@ -31,7 +31,7 @@ export const StoriesListView: React.FC<StoriesListViewProps> = ({
   const [countStories, setCountStories] = useState(countStoriesByPage);
   const { pathname } = useLocation();
 
-  const category = pathToCategory(pathname);
+  const category = useMemo(() => pathToCategory(pathname), [pathname]);
 
   useEffect(() => {
     resetStories();
@@ -41,9 +41,10 @@ export const StoriesListView: React.FC<StoriesListViewProps> = ({
     fetchStories(category, countStories);
   }, [category, countStories]);
 
-  function handleLoadMoreClick() {
-    setCountStories((prev) => prev + countStoriesByPage);
-  }
+  const handleLoadMoreClick = useCallback(
+    () => setCountStories((prev) => prev + countStoriesByPage),
+    [setCountStories],
+  );
 
   return (
     <StoryListWrapper>
