@@ -11,6 +11,7 @@ import { PageNotFound } from './PageNotFound';
 import { BodyWrapper } from '../styles/App';
 import StoriesListView from '../containers/StoriesListViewContainer';
 import rootReducer from '../store/rootReducer';
+import { MenuItem } from '../types/nav';
 
 const emotionCache = createCache();
 
@@ -19,6 +20,13 @@ const store = configureStore({
   middleware: getDefaultMiddleware(),
 });
 
+const listMenuItem: MenuItem[] = [
+  { name: 'Top', url: '/top' },
+  { name: 'Ask', url: '/ask' },
+  { name: 'Job', url: '/job' },
+  { name: 'Show', url: '/show' },
+];
+
 const App: React.FC = () => {
   return (
     <CacheProvider value={emotionCache}>
@@ -26,24 +34,12 @@ const App: React.FC = () => {
         <Router basename="/">
           <Global styles={GlobalStyles} />
           <BodyWrapper>
-            <NavMenu />
+            <NavMenu menuItems={listMenuItem} />
             <Switch>
               <Route exact path="/" component={DefaultPage} />
               <Route
-                path="/top"
-                component={() => <StoriesListView category="top" />}
-              />
-              <Route
-                path="/ask"
-                component={() => <StoriesListView category="ask" />}
-              />
-              <Route
-                path="/job"
-                component={() => <StoriesListView category="job" />}
-              />
-              <Route
-                path="/show"
-                component={() => <StoriesListView category="show" />}
+                path={['/top', '/ask', '/job', '/show']}
+                component={() => <StoriesListView />}
               />
               <Route path="*" component={PageNotFound} />
             </Switch>

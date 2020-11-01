@@ -3,22 +3,16 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { NavMenuWrapper, NavLinkStyle } from '../styles/NavMenu';
+import { MenuItem } from '../types/nav';
 
-type ListMenuItem = {
-  name: string;
-  url: string;
+type NavMenuProps = {
+  menuItems: MenuItem[];
 };
-const listMenuItem: ListMenuItem[] = [
-  { name: 'Top', url: '/top' },
-  { name: 'Ask', url: '/ask' },
-  { name: 'Job', url: '/job' },
-  { name: 'Show', url: '/show' },
-];
 
-export const NavMenu: React.FC = () => {
+export const NavMenu: React.FC<NavMenuProps> = ({ menuItems }) => {
   return (
     <NavMenuWrapper>
-      {listMenuItem.map((item) => (
+      {menuItems.map((item) => (
         <NavLink
           key={`menu-item-${item.name}`}
           css={NavLinkStyle}

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 import { CategoryStories } from '../types/common';
 import { Loader } from './Loader';
 import { Story } from '../types/story';
+import { pathToCategory } from '../mappers/pathToCategory';
 import { StoryView } from './StoryView';
 import {
   StoryListWrapper,
@@ -13,7 +15,6 @@ import { countStoriesByPage } from '../common/Constants';
 
 type StoriesListViewProps = {
   isLoading: boolean;
-  category: CategoryStories;
   fetchStories: (category: CategoryStories, count: number) => void;
   resetStories: () => void;
   stories: Story[];
@@ -24,11 +25,13 @@ export const StoriesListView: React.FC<StoriesListViewProps> = ({
   fetchStories,
   isLoading,
   stories,
-  category,
   hasData,
   resetStories,
 }) => {
   const [countStories, setCountStories] = useState(countStoriesByPage);
+  const { pathname } = useLocation();
+
+  const category = pathToCategory(pathname);
 
   useEffect(() => {
     resetStories();
