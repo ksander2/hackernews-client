@@ -7,8 +7,12 @@ import { Story } from '../models/story';
 import { AppThunk, RequestInfo } from './types';
 import {
   getTopStoriesIdArray,
+  getAskStoriesIdArray,
+  getJobStoriesIdArray,
+  getShowStoriesIdArray,
   getStoriesByArrayId,
 } from '../service/hackerNewsService';
+import { CategoryStories } from '../types/common';
 
 const storyAdapter = createEntityAdapter<Story>({
   selectId: (story) => story.id,
@@ -40,13 +44,30 @@ const {
   fetchStoriesFailed,
 } = storiesSlice.actions;
 
-export const fetchStories = (): AppThunk => async (dispatch) => {
+function getStoriesIds(categoryStories: CategoryStories) {
+  switch (categoryStories) {
+    case 'top':
+      return getTopStoriesIdArray();
+    case 'ask':
+      return getAskStoriesIdArray();
+    case 'job':
+      return getJobStoriesIdArray();
+    case 'show':
+      return getShowStoriesIdArray();
+    default:
+      throw Error(`unsupported category: ${categoryStories}`);
+  }
+}
+export const fetchStories = (
+  categoryStories: CategoryStories,
+): AppThunk => async (dispatch) => {
   dispatch(fetchStoriesRequest());
   try {
-    const ids = await getTopStoriesIdArray();
-    const stories = await getStoriesByArrayId(ids.splice(0, 20));
+    const ids = await getStoriesIds(categoryStories);
+    const stories = await getStoriesByArrayId(ids.splice(0, 10));
     dispatch(fetchStoriesSucceed(stories));
   } catch (e) {
+    console.log(e);
     dispatch(fetchStoriesFailed());
   }
 };

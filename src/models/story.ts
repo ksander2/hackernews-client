@@ -11,7 +11,7 @@ export type Story = {
   dead: boolean | undefined;
   parent: number | undefined;
   kids: number[] | undefined;
-  url: string;
+  url: string | undefined;
   score: number;
   title: string;
 };

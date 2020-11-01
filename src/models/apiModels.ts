@@ -33,7 +33,7 @@ export const StoryApiModel = Record({
   dead: $Boolean.Or(Undefined),
   parent: $Number.Or(Undefined),
   kids: $Array($Number).Or(Undefined),
-  url: $String,
+  url: $String.Or(Undefined),
   score: $Number,
   title: $String,
 });
