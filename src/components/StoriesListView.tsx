@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { CategoryStories } from '../types/common';
 import { Loader } from './Loader';
 import { Story } from '../models/story';
+import { StoryView } from './StoryView';
+import { StoryListWrapper } from '../styles/StoriesListView';
 
 type StoriesListViewProps = {
   isLoading: boolean;
@@ -11,12 +13,20 @@ type StoriesListViewProps = {
 };
 
 export const StoriesListView: React.FC<StoriesListViewProps> = ({
-  category,
   fetchStories,
   isLoading,
+  stories,
 }) => {
   useEffect(() => {
     fetchStories();
   }, []);
-  return isLoading ? <Loader /> : <div>{category}</div>;
+  return (
+    <StoryListWrapper>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        stories.map((story) => <StoryView story={story} />)
+      )}
+    </StoryListWrapper>
+  );
 };

@@ -1,0 +1,9 @@
+export const White = '#FFFFFF';
+export const Transparent = 'transparent';
+export const DarkerMainColor = '#080F36';
+export const DarkGray = '#2d2d2d';
+export const DarkerGray = '#151515';
+export const WeakGray = '#BFBFBF';
+export const Gray = '#393c3e';
+export const DarkBodyBackground = '#1A1C20';
+export const Green = '#4CAF50';

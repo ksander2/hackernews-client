@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { WeakGray, DarkerGray, BlueMarine } from './Colors';
+import { WeakGray, DarkerGray } from '../common/Colors';
 
 export const GlobalStyles = css`
   @font-face {
@@ -44,11 +44,6 @@ export const GlobalStyles = css`
     font-size: 100%;
     font-family: inherit;
     vertical-align: baseline;
-  }
-
-  a {
-    color: ${BlueMarine};
-    text-decoration-line: underline;
   }
 
   table {

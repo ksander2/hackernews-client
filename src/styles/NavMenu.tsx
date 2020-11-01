@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import css from '@emotion/css';
-import * as Colors from './Colors';
+import * as Colors from '../common/Colors';
 
 export const NavMenuWrapper = styled('div')`
-  background-color: #393c3e;
+  background-color: ${Colors.Gray};
   overflow: hidden;
   margin-bottom: 50px;
 `;
@@ -11,7 +11,7 @@ export const NavMenuWrapper = styled('div')`
 export const NavLinkStyle = css`
   float: left;
   display: block;
-  color: #bfbebe;
+  color: ${Colors.WeakGray};
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
