@@ -3,7 +3,12 @@ import { CategoryStories } from '../types/common';
 import { Loader } from './Loader';
 import { Story } from '../models/story';
 import { StoryView } from './StoryView';
-import { StoryListWrapper, LoadMoreButton } from '../styles/StoriesListView';
+import {
+  StoryListWrapper,
+  LoadMoreButton,
+  LoaderWrapper,
+  ButtonLoaderWrapper,
+} from '../styles/StoriesListView';
 import { countStoriesByPage } from '../common/Constants';
 
 type StoriesListViewProps = {
@@ -40,14 +45,22 @@ export const StoriesListView: React.FC<StoriesListViewProps> = ({
   return (
     <StoryListWrapper>
       {isLoading && !hasData ? (
-        <Loader />
+        <LoaderWrapper>
+          <Loader />
+        </LoaderWrapper>
       ) : (
         <>
           {stories.map((story) => (
             <StoryView key={`st-${story.id}`} story={story} />
           ))}
           <LoadMoreButton onClick={handleLoadMoreClick}>
-            Load more
+            {isLoading && hasData ? (
+              <ButtonLoaderWrapper>
+                <Loader />
+              </ButtonLoaderWrapper>
+            ) : (
+              'Load more'
+            )}
           </LoadMoreButton>
         </>
       )}
