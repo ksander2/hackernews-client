@@ -19,11 +19,14 @@ const storyAdapter = createEntityAdapter<Story>({
   sortComparer: (a, b) => a.title.localeCompare(b.title),
 });
 
+const getInitialState = () =>
+  storyAdapter.getInitialState<RequestInfo>({
+    loadStage: 'none',
+  });
+
 const storiesSlice = createSlice({
   name: 'stories',
-  initialState: storyAdapter.getInitialState<RequestInfo>({
-    loadStage: 'none',
-  }),
+  initialState: getInitialState(),
   reducers: {
     fetchStoriesRequest(state) {
       state.loadStage = 'requested';
@@ -35,6 +38,7 @@ const storiesSlice = createSlice({
     fetchStoriesFailed(state) {
       state.loadStage = 'failed';
     },
+    resetStories: () => getInitialState(),
   },
 });
 
@@ -43,6 +47,8 @@ const {
   fetchStoriesSucceed,
   fetchStoriesFailed,
 } = storiesSlice.actions;
+
+export const { resetStories } = storiesSlice.actions;
 
 function getStoriesIds(categoryStories: CategoryStories) {
   switch (categoryStories) {
@@ -60,11 +66,12 @@ function getStoriesIds(categoryStories: CategoryStories) {
 }
 export const fetchStories = (
   categoryStories: CategoryStories,
+  count: number,
 ): AppThunk => async (dispatch) => {
   dispatch(fetchStoriesRequest());
   try {
     const ids = await getStoriesIds(categoryStories);
-    const stories = await getStoriesByArrayId(ids.splice(0, 10));
+    const stories = await getStoriesByArrayId(ids.splice(0, count));
     dispatch(fetchStoriesSucceed(stories));
   } catch (e) {
     console.log(e);
@@ -72,6 +79,6 @@ export const fetchStories = (
   }
 };
 
-export const { selectAll } = storyAdapter.getSelectors();
+export const { selectAll, selectTotal } = storyAdapter.getSelectors();
 
 export default storiesSlice.reducer;
