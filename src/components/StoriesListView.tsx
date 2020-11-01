@@ -3,7 +3,7 @@ import { CategoryStories } from '../types/common';
 import { Loader } from './Loader';
 import { Story } from '../models/story';
 import { StoryView } from './StoryView';
-import { StoryListWrapper } from '../styles/StoriesListView';
+import { StoryListWrapper, LoadMoreButton } from '../styles/StoriesListView';
 
 type StoriesListViewProps = {
   isLoading: boolean;
@@ -21,14 +21,24 @@ export const StoriesListView: React.FC<StoriesListViewProps> = ({
   useEffect(() => {
     fetchStories(category);
   }, [category]);
+
+  function handleLoadMoreClick() {
+    console.log('test');
+  }
+
   return (
     <StoryListWrapper>
       {isLoading ? (
         <Loader />
       ) : (
-        stories.map((story) => (
-          <StoryView key={`st-${story.id}`} story={story} />
-        ))
+        <>
+          {stories.map((story) => (
+            <StoryView key={`st-${story.id}`} story={story} />
+          ))}
+          <LoadMoreButton onClick={handleLoadMoreClick}>
+            Load more
+          </LoadMoreButton>
+        </>
       )}
     </StoryListWrapper>
   );

@@ -7,3 +7,15 @@ export const StoryListWrapper = styled.div`
   color: ${Colors.WeakGray};
   margin-bottom: 1px;
 `;
+
+export const LoadMoreButton = styled.button`
+  background-color: ${Colors.Transparent};
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  height: 50px;
+  width: 100%;
+  color: ${Colors.WeakGray};
+  font-size: 17px;
+`;
