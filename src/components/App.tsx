@@ -10,6 +10,7 @@ import DefaultPage from './DefaultPage';
 import { PageNotFound } from './PageNotFound';
 import { BodyWrapper } from '../styles/App';
 import StoriesListView from '../containers/StoriesListViewContainer';
+import { CommentsListView } from './CommentsListView';
 import rootReducer from '../store/rootReducer';
 
 const emotionCache = createCache();
@@ -34,6 +35,10 @@ const App: React.FC = () => {
               <Route
                 path={listMenuItem.map((item) => `/${item}`)}
                 component={() => <StoriesListView />}
+              />
+              <Route
+                path="/story/:storyId/comments"
+                component={CommentsListView}
               />
               <Route path="*" component={PageNotFound} />
             </Switch>

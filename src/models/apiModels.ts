@@ -36,6 +36,7 @@ export const StoryApiModel = Record({
   url: $String.Or(Undefined),
   score: $Number,
   title: $String,
+  descendants: $Number.Or(Undefined),
 });
 
 export type StoryApiModel = $Static<typeof StoryApiModel>;
@@ -57,6 +58,7 @@ export function convertToStory({
   title,
   type,
   url,
+  descendants,
 }: StoryApiModel): Story {
   return {
     id,
@@ -71,5 +73,6 @@ export function convertToStory({
     title,
     type,
     url,
+    descendants,
   };
 }

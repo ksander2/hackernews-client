@@ -13,6 +13,7 @@ export type Story = {
   parent: number | undefined;
   kids: number[] | undefined;
   url: string | undefined;
+  descendants: number | undefined;
   score: number;
   title: string;
 };

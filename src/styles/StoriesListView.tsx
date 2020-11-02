@@ -21,12 +21,6 @@ export const LoadMoreButton = styled.button`
   outline: none;
 `;
 
-export const LoaderWrapper = styled('div')`
-  height: 90px;
-  text-align: Center;
-  font-size: 50px;
-`;
-
 export const ButtonLoaderWrapper = styled('div')`
   position: relative;
   top: -20px;

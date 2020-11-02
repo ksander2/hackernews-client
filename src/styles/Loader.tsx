@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 export const LoaderWrapper = styled('div')`
-  font-size: 50px;
+  height: 90px;
   text-align: Center;
+  font-size: 50px;
 `;

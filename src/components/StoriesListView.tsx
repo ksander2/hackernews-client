@@ -8,9 +8,9 @@ import { StoryView } from './StoryView';
 import {
   StoryListWrapper,
   LoadMoreButton,
-  LoaderWrapper,
   ButtonLoaderWrapper,
 } from '../styles/StoriesListView';
+import { LoaderWrapper } from '../styles/Loader';
 import { countStoriesByPage } from '../common/Constants';
 
 type StoriesListViewProps = {
