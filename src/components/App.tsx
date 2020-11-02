@@ -11,6 +11,7 @@ import { PageNotFound } from './PageNotFound';
 import { BodyWrapper } from '../styles/App';
 import StoriesListView from '../containers/StoriesListViewContainer';
 import { CommentsListView } from './CommentsListView';
+import ErrorBoundary from './ErrorBoundary';
 import rootReducer from '../store/rootReducer';
 
 const emotionCache = createCache();
@@ -28,21 +29,23 @@ const App: React.FC = () => {
       <Provider store={store}>
         <Router basename="/">
           <Global styles={GlobalStyles} />
-          <BodyWrapper>
-            <NavMenu menuItems={listMenuItem} />
-            <Switch>
-              <Route exact path="/" component={DefaultPage} />
-              <Route
-                path={listMenuItem.map((item) => `/${item}`)}
-                component={() => <StoriesListView />}
-              />
-              <Route
-                path="/story/:storyId/comments"
-                component={CommentsListView}
-              />
-              <Route path="*" component={PageNotFound} />
-            </Switch>
-          </BodyWrapper>
+          <ErrorBoundary>
+            <BodyWrapper>
+              <NavMenu menuItems={listMenuItem} />
+              <Switch>
+                <Route exact path="/" component={DefaultPage} />
+                <Route
+                  path={listMenuItem.map((item) => `/${item}`)}
+                  component={() => <StoriesListView />}
+                />
+                <Route
+                  path="/story/:storyId/comments"
+                  component={CommentsListView}
+                />
+                <Route path="*" component={PageNotFound} />
+              </Switch>
+            </BodyWrapper>
+          </ErrorBoundary>
         </Router>
       </Provider>
     </CacheProvider>
