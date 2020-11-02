@@ -34,8 +34,8 @@ export const StoryApiModel = Record({
   parent: $Number.Or(Undefined),
   kids: $Array($Number).Or(Undefined),
   url: $String.Or(Undefined),
-  score: $Number,
-  title: $String,
+  score: $Number.Or(Undefined),
+  title: $String.Or(Undefined),
   descendants: $Number.Or(Undefined),
 });
 
@@ -55,7 +55,7 @@ export function convertToStory({
   score,
   text,
   time,
-  title,
+  title: apiTitle,
   type,
   url,
   descendants,
@@ -70,7 +70,7 @@ export function convertToStory({
     score,
     text,
     time,
-    title,
+    title: apiTitle ?? '',
     type,
     url,
     descendants,

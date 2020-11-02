@@ -14,6 +14,6 @@ export type Story = {
   kids: number[] | undefined;
   url: string | undefined;
   descendants: number | undefined;
-  score: number;
+  score: number | undefined;
   title: string;
 };

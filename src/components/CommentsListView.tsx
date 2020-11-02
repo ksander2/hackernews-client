@@ -1,24 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useFetchStory } from '../hooks/useFetchStory';
+import { useFetchComments } from '../hooks/useFetchComments';
 import { Loader } from './Loader';
 import { LoaderWrapper } from '../styles/Loader';
 import { StoryWrapper, StoryTitle } from '../styles/CommentsListView';
+import { LoadStage } from '../store/types';
 
 type StoryUrlParams = {
   storyId: string;
 };
 
-type CommentsListViewProps = {
-  do1?: string;
-};
+function useIsLoading(
+  storyLoadStage: LoadStage,
+  commentsLoadStage: LoadStage,
+): boolean {
+  return storyLoadStage === 'requested' || commentsLoadStage === 'requested';
+}
 
-export const CommentsListView: React.FC<CommentsListViewProps> = ({ do1 }) => {
+export const CommentsListView: React.FC = () => {
   const { storyId } = useParams<StoryUrlParams>();
 
   const [story, storyLoadStage] = useFetchStory(storyId);
+  const [comments, commentsLoadStage] = useFetchComments(story?.kids);
 
-  return storyLoadStage === 'requested' ? (
+  const isLoading = useIsLoading(storyLoadStage, commentsLoadStage);
+
+  return isLoading ? (
     <LoaderWrapper>
       <Loader />
     </LoaderWrapper>
