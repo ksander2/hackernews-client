@@ -1,7 +1,4 @@
-import { EntityState } from '@reduxjs/toolkit';
-import { RequestInfo } from './types';
-
-type RequestableState<TEntity> = EntityState<TEntity> & RequestInfo;
+import { RequestableState } from './types';
 
 export function isLoading<TEntity>(state: RequestableState<TEntity>): boolean {
   return state.loadStage === 'requested';

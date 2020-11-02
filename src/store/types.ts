@@ -1,3 +1,4 @@
+import { EntityState } from '@reduxjs/toolkit';
 import rootReducer from './rootReducer';
 import { AppThunkWithResult as ThunkWithResult } from '../types/store';
 
@@ -9,3 +10,5 @@ export type LoadStage = 'none' | 'requested' | 'succeeded' | 'failed';
 export type RequestInfo = {
   loadStage: LoadStage;
 };
+
+export type RequestableState<TEntity> = EntityState<TEntity> & RequestInfo;
