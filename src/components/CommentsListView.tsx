@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useFetchStory } from '../hooks/useFetchStory';
 import { useFetchComments } from '../hooks/useFetchComments';
 import { Loader } from './Loader';
@@ -24,6 +25,7 @@ function useIsLoading(
 }
 
 export const CommentsListView: React.FC = () => {
+  const { t } = useTranslation('views');
   const { storyId } = useParams<StoryUrlParams>();
 
   const [story, storyLoadStage] = useFetchStory(storyId);
@@ -40,7 +42,8 @@ export const CommentsListView: React.FC = () => {
       <StoryWrapper>
         <StoryTitle>{story?.title}</StoryTitle>
         <span>
-          {story?.score} points by {story?.by} | comments: {story?.descendants}
+          {story?.score} {t('commentsView.pointsBy')} {story?.by} |{' '}
+          {t('commentsView.comments')}: {story?.descendants}
         </span>
       </StoryWrapper>
       <CommentsListWrapper>

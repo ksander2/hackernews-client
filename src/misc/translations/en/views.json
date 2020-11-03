@@ -1,0 +1,14 @@
+{
+    "storiesView":
+    {
+        "loadMoreBtn": "Load more",
+        "pointsBy": "points by"
+    },
+    "commentsView":
+    {
+        "by": "by",
+        "pointsBy": "points by",
+        "comments": "comments"
+    },
+    "hoursAgo": "hours ago"
+}

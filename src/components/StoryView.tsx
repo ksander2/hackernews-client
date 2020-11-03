@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Story } from '../types/story';
 import {
   StoryWrapper,
@@ -9,7 +10,6 @@ import {
   StoryAttributes,
   StoryLink,
 } from '../styles/StoryView';
-
 import { hoursAgoFromDate } from '../utils';
 
 type StoryViewProps = {
@@ -18,7 +18,7 @@ type StoryViewProps = {
 
 export const StoryView: React.FC<StoryViewProps> = ({ story }) => {
   const hourAgo = useMemo(() => hoursAgoFromDate(story.time), [story.time]);
-
+  const { t } = useTranslation('views');
   const content = useMemo(() => {
     if (story.kids != null) {
       return `${story?.kids.length} comments`;
@@ -32,7 +32,9 @@ export const StoryView: React.FC<StoryViewProps> = ({ story }) => {
     <StoryWrapper>
       <StoryTitle href={story.url}>{story.title}</StoryTitle>
       <div>
-        <StoryAttributes>{`${story.score} points by ${story.by} | ${hourAgo} hours ago `}</StoryAttributes>
+        <StoryAttributes>{`${story.score} ${t('storiesView.pointsBy')} ${
+          story.by
+        } | ${hourAgo} ${t('hoursAgo')} `}</StoryAttributes>
         <Link css={StoryLink} to={path}>
           {content}
         </Link>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useLocation } from 'react-router';
+import { useTranslation } from 'react-i18next';
 import { CategoryStories } from '../types/common';
 import { Loader } from './Loader';
 import { Story } from '../types/story';
@@ -28,6 +29,7 @@ export const StoriesListView: React.FC<StoriesListViewProps> = ({
   hasData,
   resetStories,
 }) => {
+  const { t } = useTranslation('views');
   const [countStories, setCountStories] = useState(countStoriesByPage);
   const { pathname } = useLocation();
 
@@ -63,7 +65,7 @@ export const StoriesListView: React.FC<StoriesListViewProps> = ({
                 <Loader />
               </ButtonLoaderWrapper>
             ) : (
-              'Load more'
+              t('storiesView.loadMoreBtn')
             )}
           </LoadMoreButton>
         </>

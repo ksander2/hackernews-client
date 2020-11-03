@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import parse from 'html-react-parser';
+import { useTranslation } from 'react-i18next';
 import React, { useMemo } from 'react';
 import { Story } from '../types/story';
 import { CommentsWrapper, CommentsAttributes } from '../styles/Comment';
@@ -11,10 +12,13 @@ type CommentProps = {
 };
 
 export const Comment: React.FC<CommentProps> = ({ data }) => {
+  const { t } = useTranslation('views');
   const hourAgo = useMemo(() => hoursAgoFromDate(data.time), [data.time]);
   return (
     <CommentsWrapper>
-      <CommentsAttributes>{` by ${data.by} | ${hourAgo} hours ago`}</CommentsAttributes>
+      <CommentsAttributes>{` ${t('commentsView.by')} ${
+        data.by
+      } | ${hourAgo} ${t('hoursAgo')}`}</CommentsAttributes>
       <div>{parse(data?.text ?? '')}</div>
     </CommentsWrapper>
   );

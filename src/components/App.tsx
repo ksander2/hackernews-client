@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { I18nextProvider } from 'react-i18next';
+import i18next from 'i18next';
 import createCache from '@emotion/cache';
 import { CacheProvider, Global } from '@emotion/core';
 import { Provider } from 'react-redux';
@@ -13,7 +15,9 @@ import StoriesListView from '../containers/StoriesListViewContainer';
 import { CommentsListView } from './CommentsListView';
 import ErrorBoundary from './ErrorBoundary';
 import rootReducer from '../store/rootReducer';
+import { config as i18nextConfig } from '../misc/translations/index';
 
+i18next.init(i18nextConfig);
 const emotionCache = createCache();
 
 const store = configureStore({
@@ -27,26 +31,28 @@ const App: React.FC = () => {
   return (
     <CacheProvider value={emotionCache}>
       <Provider store={store}>
-        <Router basename="/">
-          <Global styles={GlobalStyles} />
-          <ErrorBoundary>
-            <BodyWrapper>
-              <NavMenu menuItems={listMenuItem} />
-              <Switch>
-                <Route exact path="/" component={DefaultPage} />
-                <Route
-                  path={listMenuItem.map((item) => `/${item}`)}
-                  component={() => <StoriesListView />}
-                />
-                <Route
-                  path="/story/:storyId/comments"
-                  component={CommentsListView}
-                />
-                <Route path="*" component={PageNotFound} />
-              </Switch>
-            </BodyWrapper>
-          </ErrorBoundary>
-        </Router>
+        <I18nextProvider i18n={i18next}>
+          <Router basename="/">
+            <Global styles={GlobalStyles} />
+            <ErrorBoundary>
+              <BodyWrapper>
+                <NavMenu menuItems={listMenuItem} />
+                <Switch>
+                  <Route exact path="/" component={DefaultPage} />
+                  <Route
+                    path={listMenuItem.map((item) => `/${item}`)}
+                    component={() => <StoriesListView />}
+                  />
+                  <Route
+                    path="/story/:storyId/comments"
+                    component={CommentsListView}
+                  />
+                  <Route path="*" component={PageNotFound} />
+                </Switch>
+              </BodyWrapper>
+            </ErrorBoundary>
+          </Router>
+        </I18nextProvider>
       </Provider>
     </CacheProvider>
   );
