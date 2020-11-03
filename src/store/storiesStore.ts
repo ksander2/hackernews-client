@@ -2,6 +2,7 @@ import {
   createSlice,
   PayloadAction,
   createEntityAdapter,
+  EntityState,
 } from '@reduxjs/toolkit';
 import { Story } from '../types/story';
 import { AppThunk, RequestInfo } from './types';
@@ -19,7 +20,7 @@ const storyAdapter = createEntityAdapter<Story>({
   sortComparer: (a, b) => a.id - b.id,
 });
 
-const getInitialState = () =>
+export const getInitialState = (): EntityState<Story> & RequestInfo =>
   storyAdapter.getInitialState<RequestInfo>({
     loadStage: 'none',
   });
@@ -42,7 +43,7 @@ const storiesSlice = createSlice({
   },
 });
 
-const {
+export const {
   fetchStoriesRequest,
   fetchStoriesSucceed,
   fetchStoriesFailed,
