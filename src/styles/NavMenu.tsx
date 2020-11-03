@@ -2,14 +2,16 @@ import styled from '@emotion/styled';
 import css from '@emotion/css';
 import * as Colors from '../common/Colors';
 
-export const NavMenuWrapper = styled('div')`
+export const NavMenuWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+
   background-color: ${Colors.Gray};
   overflow: hidden;
   margin-bottom: 50px;
 `;
 
 export const NavLinkStyle = css`
-  float: left;
   display: block;
   color: ${Colors.WeakGray};
   text-align: center;
