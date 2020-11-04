@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Story } from '../types/story';
 import {
@@ -13,7 +13,7 @@ type StoryViewProps = {
   story: Story;
 };
 
-export const StoryView: React.FC<StoryViewProps> = ({ story }) => {
+export const StoryView: React.FC<StoryViewProps> = memo(({ story }) => {
   const hourAgo = useMemo(() => hoursAgoFromDate(story.time), [story.time]);
   const { t } = useTranslation('views');
   const content = useMemo(() => {
@@ -36,4 +36,4 @@ export const StoryView: React.FC<StoryViewProps> = ({ story }) => {
       </div>
     </StoryWrapper>
   );
-};
+});
