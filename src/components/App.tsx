@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
 import { Provider } from 'react-redux';
