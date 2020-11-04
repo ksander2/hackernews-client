@@ -2,6 +2,7 @@
   "name": "hackernews-client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ksander2.github.io/hackernews-client/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^5.11.4",
