@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import css from '@emotion/css';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import * as Colors from '../common/Colors';
 
 export const StoryWrapper = styled.div`
@@ -18,7 +18,7 @@ export const StoryAttributes = styled.span`
   font-size: 12px;
 `;
 
-export const StoryLink = css`
+export const StoryLink = styled(Link)`
   font-size: 12px;
   color: ${Colors.WeakGray};
   text-decoration: underline;

@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
-import css from '@emotion/css';
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 import * as Colors from '../common/Colors';
 
 export const NavMenuWrapper = styled.div`
@@ -11,7 +11,7 @@ export const NavMenuWrapper = styled.div`
   margin-bottom: 50px;
 `;
 
-export const NavLinkStyle = css`
+export const NavLinkStyled = styled(NavLink)`
   display: block;
   color: ${Colors.WeakGray};
   text-align: center;

@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import React, { useMemo } from 'react';

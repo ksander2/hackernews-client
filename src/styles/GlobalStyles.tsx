@@ -1,8 +1,7 @@
-import { css } from '@emotion/core';
-import styled from '@emotion/styled';
+import styled, { createGlobalStyle } from 'styled-components';
 import { WeakGray, DarkerGray } from '../common/Colors';
 
-export const GlobalStyles = css`
+export const GlobalStyles = createGlobalStyle`
   @font-face {
     font-family: 'Nunito-sans';
     font-weight: 200;

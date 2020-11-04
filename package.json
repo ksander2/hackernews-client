@@ -3,10 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/cache": "^10.0.29",
-    "@emotion/core": "^10.0.35",
-    "@emotion/css": "^10.0.27",
-    "@emotion/styled": "^10.0.27",
     "@reduxjs/toolkit": "^1.4.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -28,6 +24,7 @@
     "react-scripts": "4.0.0",
     "redux-thunk": "^2.3.0",
     "runtypes": "^5.0.1",
+    "styled-components": "^5.2.1",
     "typescript": "^4.0.3"
   },
   "scripts": {
@@ -56,6 +53,7 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.6",
+    "@types/styled-components": "^5.1.4",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.0",
     "babel-plugin-emotion": "^10.0.33",

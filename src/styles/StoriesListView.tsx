@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from 'styled-components';
 import * as Colors from '../common/Colors';
 
 export const StoryListWrapper = styled.div`

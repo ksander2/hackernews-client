@@ -1,7 +1,4 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Story } from '../types/story';
 import {
@@ -35,9 +32,7 @@ export const StoryView: React.FC<StoryViewProps> = ({ story }) => {
         <StoryAttributes>{`${story.score} ${t('storiesView.pointsBy')} ${
           story.by
         } | ${hourAgo} ${t('hoursAgo')} `}</StoryAttributes>
-        <Link css={StoryLink} to={path}>
-          {content}
-        </Link>
+        <StoryLink to={path}>{content}</StoryLink>
       </div>
     </StoryWrapper>
   );
