@@ -4,16 +4,9 @@ import {
   createEntityAdapter,
   EntityState,
 } from '@reduxjs/toolkit';
-import { Story } from '../types/story';
+import { Story, StoriesIds } from '../types/story';
 import { AppThunk, RequestInfo } from './types';
-import {
-  getTopStoriesIdArray,
-  getAskStoriesIdArray,
-  getJobStoriesIdArray,
-  getShowStoriesIdArray,
-  getStoriesByArrayId,
-} from '../service/hackerNewsService';
-import { CategoryStories } from '../types/common';
+import { getStoriesByArrayId } from '../service/hackerNewsService';
 
 const storyAdapter = createEntityAdapter<Story>({
   selectId: (story) => story.id,
@@ -36,6 +29,10 @@ const storiesSlice = createSlice({
       state.loadStage = 'succeeded';
       storyAdapter.setAll(state, payload);
     },
+    fetchNextPageStoriesSucceed(state, { payload }: PayloadAction<Story[]>) {
+      state.loadStage = 'succeeded';
+      storyAdapter.addMany(state, payload);
+    },
     fetchStoriesFailed(state) {
       state.loadStage = 'failed';
     },
@@ -47,33 +44,23 @@ export const {
   fetchStoriesRequest,
   fetchStoriesSucceed,
   fetchStoriesFailed,
+  fetchNextPageStoriesSucceed,
 } = storiesSlice.actions;
 
 export const { resetStories } = storiesSlice.actions;
 
-function getStoriesIds(categoryStories: CategoryStories) {
-  switch (categoryStories) {
-    case 'top':
-      return getTopStoriesIdArray();
-    case 'ask':
-      return getAskStoriesIdArray();
-    case 'job':
-      return getJobStoriesIdArray();
-    case 'show':
-      return getShowStoriesIdArray();
-    default:
-      throw Error(`unsupported category: ${categoryStories}`);
-  }
-}
 export const fetchStories = (
-  categoryStories: CategoryStories,
-  count: number,
+  ids: StoriesIds,
+  isNew: boolean,
 ): AppThunk => async (dispatch) => {
   dispatch(fetchStoriesRequest());
   try {
-    const ids = await getStoriesIds(categoryStories);
-    const stories = await getStoriesByArrayId(ids.sort().splice(0, count));
-    dispatch(fetchStoriesSucceed(stories));
+    const stories = await getStoriesByArrayId(ids);
+    if (isNew) {
+      dispatch(fetchStoriesSucceed(stories));
+    } else {
+      dispatch(fetchNextPageStoriesSucceed(stories));
+    }
   } catch (e) {
     console.log(e);
     dispatch(fetchStoriesFailed());
