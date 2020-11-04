@@ -25,7 +25,7 @@ export type StoriesIdsApiModel = $Static<typeof StoriesIdsApiModel>;
 
 export const StoryApiModel = Record({
   id: $Number,
-  by: $String,
+  by: $String.Or(Undefined),
   type: StoryType,
   deleted: $Boolean.Or(Undefined),
   time: $Number,
@@ -47,7 +47,7 @@ export function convertToStoriesIds(apiModel: StoriesIdsApiModel): StoriesIds {
 
 export function convertToStory({
   id,
-  by,
+  by: apiBy,
   dead,
   deleted,
   kids,
@@ -62,7 +62,7 @@ export function convertToStory({
 }: StoryApiModel): Story {
   return {
     id,
-    by,
+    by: apiBy ?? 'anonym',
     dead,
     deleted,
     kids,
