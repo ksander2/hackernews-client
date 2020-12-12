@@ -8,6 +8,8 @@ import { Story, StoriesIds } from '../types/story';
 import { AppThunk, RequestInfo } from './types';
 import { getStoriesByArrayId } from '../service/hackerNewsService';
 
+let abortController: AbortController | null = null;
+
 const storyAdapter = createEntityAdapter<Story>({
   selectId: (story) => story.id,
   sortComparer: (a, b) => a.id - b.id,
@@ -53,9 +55,13 @@ export const fetchStories = (
   ids: StoriesIds,
   isNew: boolean,
 ): AppThunk => async (dispatch) => {
+  if (abortController) {
+    abortController.abort();
+  }
   dispatch(fetchStoriesRequest());
   try {
-    const stories = await getStoriesByArrayId(ids);
+    abortController = new AbortController();
+    const stories = await getStoriesByArrayId(ids, abortController.signal);
     if (isNew) {
       dispatch(fetchStoriesSucceed(stories));
     } else {

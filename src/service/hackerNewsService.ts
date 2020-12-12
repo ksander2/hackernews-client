@@ -43,15 +43,21 @@ export function getJobStoriesIdArray(): Promise<StoriesIds> {
   return getStoriesIdArray('jobstories');
 }
 
-export async function getStoryById(id: number): Promise<Story> {
+export async function getStoryById(
+  id: number,
+  signal?: AbortSignal,
+): Promise<Story> {
   const url = baseUrl + itemPath + id + jsonFormat;
-  const responseApi = await fetch(url)
+  const responseApi = await fetch(url, { signal })
     .then(handleErrors)
     .then((resp) => resp.json());
   const apiModel = StoryApiModel.check(responseApi);
   return convertToStory(apiModel);
 }
 
-export function getStoriesByArrayId(ids: StoriesIds): Promise<Story[]> {
-  return Promise.all(ids.map((storyId) => getStoryById(storyId)));
+export function getStoriesByArrayId(
+  ids: StoriesIds,
+  signal?: AbortSignal,
+): Promise<Story[]> {
+  return Promise.all(ids.map((storyId) => getStoryById(storyId, signal)));
 }
