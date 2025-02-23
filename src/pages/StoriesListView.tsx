@@ -1,21 +1,21 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { Loader } from './Loader';
-import { pathToCategory } from '../mappers/pathToCategory';
-import { StoryView } from './StoryView';
+import { Loader } from '../shared/Loader';
+import { pathToCategory } from '../app/mappers/pathToCategory';
+import { StoryView } from '../widgets/StoryView';
 import {
   StoryListWrapper,
   LoadMoreButton,
   ButtonLoaderWrapper,
-} from '../styles/StoriesListView';
-import { LoaderWrapper } from '../styles/Loader';
-import { countStoriesByPage } from '../common/Constants';
-import { useFetchStoriesIds } from '../hooks/useFetchStoriesIds';
+} from '../app/styles/StoriesListView';
+import { LoaderWrapper } from '../app/styles/Loader';
+import { countStoriesByPage } from '../app/common/Constants';
+import { useFetchStoriesIds } from '../app/hooks/useFetchStoriesIds';
 import { useSelector } from 'react-redux';
-import { getStories, hasData, isStoriesLoading } from '../selectors/storiesListViewSelectors';
-import { fetchStories, resetStories } from '../store/storiesStore';
-import { useAppDispatch } from '../types/store';
+import { getStories, hasData, isStoriesLoading } from '../app/selectors/storiesListViewSelectors';
+import { fetchStories, resetStories } from '../app/store/storiesStore';
+import { useAppDispatch } from '../app/types/store';
 
 export const StoriesListView: React.FC = () => {
   const { t } = useTranslation('views');

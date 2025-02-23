@@ -1,17 +1,17 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useFetchStory } from '../hooks/useFetchStory';
-import { useFetchComments } from '../hooks/useFetchComments';
-import { Loader } from './Loader';
-import { LoaderWrapper } from '../styles/Loader';
+import { useFetchStory } from '../app/hooks/useFetchStory';
+import { useFetchComments } from '../app/hooks/useFetchComments';
+import { Loader } from '../shared/Loader';
+import { LoaderWrapper } from '../app/styles/Loader';
 import {
   StoryWrapper,
   StoryTitle,
   CommentsListWrapper,
-} from '../styles/CommentsListView';
-import { LoadStage } from '../store/types';
-import { Comment } from './Comment';
+} from '../app/styles/CommentsListView';
+import { LoadStage } from '../app/store/types';
+import { Comment } from '../widgets/Comment';
 
 type StoryUrlParams = {
   storyId: string;
@@ -28,7 +28,7 @@ export const CommentsListView: React.FC = () => {
   const { t } = useTranslation('views');
   const { storyId } = useParams<StoryUrlParams>();
 
-  const [story, storyLoadStage] = useFetchStory(storyId);
+  const [story, storyLoadStage] = useFetchStory(storyId ?? '');
   const [comments, commentsLoadStage] = useFetchComments(story?.kids);
 
   const isLoading = useIsLoading(storyLoadStage, commentsLoadStage);

@@ -6,7 +6,7 @@ import {
 } from '../models/apiModels';
 import { StoriesIds, Story } from '../types/story';
 
-const baseUrl = 'https://hacker-news.firebaseio.com/v0/';
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const itemPath = 'item/';
 const jsonFormat = '.json?print=pretty';
 

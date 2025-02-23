@@ -1,13 +1,13 @@
 import React, { useMemo, memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Story } from '../types/story';
+import { Story } from '../app/types/story';
 import {
   StoryWrapper,
   StoryTitle,
   StoryAttributes,
   StoryLink,
-} from '../styles/StoryView';
-import { hoursAgoFromDate } from '../utils';
+} from '../app/styles/StoryView';
+import { hoursAgoFromDate } from '../app/utils';
 
 type StoryViewProps = {
   story: Story;

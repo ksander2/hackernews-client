@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from "react-router";
 
-const DefaultPage: React.FC = () => {
+export const DefaultPage: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(()=> {
@@ -9,5 +9,3 @@ const DefaultPage: React.FC = () => {
     },[])
     return <div />
 };
-
-export default DefaultPage;

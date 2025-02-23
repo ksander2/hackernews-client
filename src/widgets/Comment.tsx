@@ -1,9 +1,9 @@
 import parse from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import React, { useMemo, memo } from 'react';
-import { Story } from '../types/story';
-import { CommentsWrapper, CommentsAttributes } from '../styles/Comment';
-import { hoursAgoFromDate } from '../utils';
+import { Story } from '../app/types/story';
+import { CommentsWrapper, CommentsAttributes } from '../app/styles/Comment';
+import { hoursAgoFromDate } from '../app/utils';
 
 type CommentProps = {
   data: Story;

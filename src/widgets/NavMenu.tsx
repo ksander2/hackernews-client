@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavMenuWrapper, NavLinkStyled } from '../styles/NavMenu';
+import { NavMenuWrapper, NavLinkStyled } from '../app/styles/NavMenu';
 
 type NavMenuProps = {
   menuItems: string[];
