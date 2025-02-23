@@ -1,12 +1,8 @@
 import React from 'react';
-import { Dot } from 'react-animated-dots';
+import { BeatLoader } from 'react-spinners';
 
 export const Loader: React.FC = () => {
   return (
-    <>
-      <Dot>.</Dot>
-      <Dot>.</Dot>
-      <Dot>.</Dot>
-    </>
+    <BeatLoader color='#c9baba' />
   );
 };

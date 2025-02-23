@@ -4,10 +4,9 @@ import {
   Number as $Number,
   Array as $Array,
   Static as $Static,
-  Record,
+  Object as RObject,
   Union,
   Literal,
-  Undefined,
 } from 'runtypes';
 
 import { StoriesIds, Story } from '../types/story';
@@ -23,20 +22,20 @@ const StoryType = Union(
 export const StoriesIdsApiModel = $Array($Number);
 export type StoriesIdsApiModel = $Static<typeof StoriesIdsApiModel>;
 
-export const StoryApiModel = Record({
+export const StoryApiModel = RObject({
   id: $Number,
-  by: $String.Or(Undefined),
+  by: $String.optional(),
   type: StoryType,
-  deleted: $Boolean.Or(Undefined),
+  deleted: $Boolean.optional(),
   time: $Number,
-  text: $String.Or(Undefined),
-  dead: $Boolean.Or(Undefined),
-  parent: $Number.Or(Undefined),
-  kids: $Array($Number).Or(Undefined),
-  url: $String.Or(Undefined),
-  score: $Number.Or(Undefined),
-  title: $String.Or(Undefined),
-  descendants: $Number.Or(Undefined),
+  text: $String.optional(),
+  dead: $Boolean.optional(),
+  parent: $Number.optional(),
+  kids: $Array($Number).optional(),
+  url: $String.optional(),
+  score: $Number.optional(),
+  title: $String.optional(),
+  descendants: $Number.optional(),
 });
 
 export type StoryApiModel = $Static<typeof StoryApiModel>;

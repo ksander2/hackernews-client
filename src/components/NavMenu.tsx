@@ -13,7 +13,6 @@ export const NavMenu: React.FC<NavMenuProps> = ({ menuItems }) => {
       {menuItems.map((item) => (
         <NavLinkStyled
           key={`menu-item-${item}`}
-          activeClassName="active"
           id={`id-item-${item}`}
           to={`/${item}`}
         >

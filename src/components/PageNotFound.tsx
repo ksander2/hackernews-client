@@ -1,10 +1,9 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router';
 
-type NotFoundProps = RouteComponentProps;
-
-export const PageNotFound: React.FC<NotFoundProps> = ({ location }) => {
+export const PageNotFound: React.FC = () => {
+  const location = useLocation();
   const { t } = useTranslation('pageNotFound');
   return (
     <span>

@@ -3,19 +3,20 @@ import {
   PayloadAction,
   createEntityAdapter,
   EntityState,
+  createAsyncThunk,
 } from '@reduxjs/toolkit';
 import { Story, StoriesIds } from '../types/story';
-import { AppThunk, RequestInfo } from './types';
+import { RequestInfo } from './types';
 import { getStoriesByArrayId } from '../service/hackerNewsService';
 
 let abortController: AbortController | null = null;
 
-const storyAdapter = createEntityAdapter<Story>({
-  selectId: (story) => story.id,
+const storyAdapter = createEntityAdapter<Story, number>({
+  selectId: (story: Story) => story.id,
   sortComparer: (a, b) => a.id - b.id,
 });
 
-export const getInitialState = (): EntityState<Story> & RequestInfo =>
+export const getInitialState = (): EntityState<Story, number> & RequestInfo =>
   storyAdapter.getInitialState<RequestInfo>({
     loadStage: 'none',
   });
@@ -51,27 +52,32 @@ export const {
 
 export const { resetStories } = storiesSlice.actions;
 
-export const fetchStories = (
-  ids: StoriesIds,
-  isNew: boolean,
-): AppThunk => async (dispatch) => {
-  if (abortController) {
-    abortController.abort();
-  }
-  dispatch(fetchStoriesRequest());
-  try {
-    abortController = new AbortController();
-    const stories = await getStoriesByArrayId(ids, abortController.signal);
-    if (isNew) {
-      dispatch(fetchStoriesSucceed(stories));
-    } else {
-      dispatch(fetchNextPageStoriesSucceed(stories));
+type FetchStoriesType = {
+  ids: StoriesIds;
+  isNew: boolean;
+}
+
+export const fetchStories = createAsyncThunk(
+  'stories/fetchStories',
+  async ({ids, isNew}: FetchStoriesType, thunkAPI) => {
+    if (abortController) {
+      abortController.abort();
     }
-  } catch (e) {
-    console.log(e);
-    dispatch(fetchStoriesFailed());
-  }
-};
+    thunkAPI.dispatch(fetchStoriesRequest());
+    try {
+      abortController = new AbortController();
+      const stories = await getStoriesByArrayId(ids, abortController.signal);
+      if (isNew) {
+        thunkAPI.dispatch(fetchStoriesSucceed(stories));
+      } else {
+        thunkAPI.dispatch(fetchNextPageStoriesSucceed(stories));
+      }
+    } catch (e) {
+      console.log(e);
+      thunkAPI.dispatch(fetchStoriesFailed());
+    }
+  },
+)
 
 export const { selectAll, selectTotal } = storyAdapter.getSelectors();
 

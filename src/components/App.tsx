@@ -1,26 +1,20 @@
 import React from 'react';
-import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
 import { Provider } from 'react-redux';
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { GlobalStyles } from '../styles/GlobalStyles';
 import { NavMenu } from './NavMenu';
 import DefaultPage from './DefaultPage';
 import { PageNotFound } from './PageNotFound';
 import { BodyWrapper } from '../styles/App';
-import StoriesListView from '../containers/StoriesListViewContainer';
 import { CommentsListView } from './CommentsListView';
 import ErrorBoundary from './ErrorBoundary';
-import rootReducer from '../store/rootReducer';
 import { config as i18nextConfig } from '../misc/translations/index';
+import { StoriesListView } from './StoriesListView';
+import { store } from '../storeConfig';
 
 i18next.init(i18nextConfig);
-
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: getDefaultMiddleware(),
-});
 
 const listMenuItem: string[] = ['top', 'ask', 'job', 'show'];
 
@@ -33,18 +27,20 @@ const App: React.FC = () => {
           <ErrorBoundary>
             <BodyWrapper>
               <NavMenu menuItems={listMenuItem} />
-              <Switch>
-                <Route exact path="/" component={DefaultPage} />
-                <Route
-                  path={listMenuItem.map((item) => `/${item}`)}
-                  component={() => <StoriesListView />}
-                />
+              <Routes>
+                <Route path="/" element={<DefaultPage />} />
+                {listMenuItem.map((item) =>
+                  <Route
+                    key={`k-${item}`}
+                    path={`/${item}`}
+                    element={<StoriesListView />}
+                  />)}
                 <Route
                   path="/story/:storyId/comments"
-                  component={CommentsListView}
+                  element={<CommentsListView />}
                 />
-                <Route path="*" component={PageNotFound} />
-              </Switch>
+                <Route path="*" element={<PageNotFound />} />
+              </Routes>
             </BodyWrapper>
           </ErrorBoundary>
         </Router>
